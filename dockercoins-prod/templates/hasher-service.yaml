@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    projectname: {{ .Values.project }}
+    environment: {{ .Values.environment }}
+    servicename: hasher
+  name: hasher
+spec:
+  ports:
+    - port: {{ .Values.service.port }}
+      protocol: TCP
+      targetPort: {{ .Values.service.port }}
+  selector:
+    servicename: hasher
+  type: {{ .Values.service.type }}

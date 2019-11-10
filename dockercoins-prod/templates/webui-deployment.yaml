@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    projectname: {{ .Values.project }}
+    environment: {{ .Values.environment }}
+    servicename: webui
+  name: webui
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      servicename: webui
+  template:
+    metadata:
+      labels:
+        projectname: {{ .Values.project }}
+        environment: {{ .Values.environment }}
+        servicename: webui
+    spec:
+      containers:
+        - image: {{ .Values.image.registry }}/webui:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: webui
+          env: 
+            - name: PROJECT_NAME
+              value: {{ .Values.project }}
+            - name: ENVIRONMENT
+              value: {{ .Values.environment }}
+            - name: SERVICE_NAME
+              value: webui
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80

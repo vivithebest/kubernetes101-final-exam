@@ -1,0 +1,25 @@
+# Default values for docker-coin-prod.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# environment: prod
+project: dockercoins
+replicaCount: 1
+
+image:
+  registry: 127.0.0.1:32576
+  tag: v0.1
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: false
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: false
+  webuiHost:  webui.192.168.33.111.nip.io
+
+healthcheck:
+  enabled: false

@@ -1,0 +1,19 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    projectname: {{ .Values.project }}
+    environment: {{ .Values.environment }}
+    servicename: {{ .Values.servicename }}
+  name: {{ .Values.servicename }}
+spec:
+  rules:
+    - host: {{ .Values.environment }}-{{ .Values.ingress.webuiHost }}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: {{ .Values.servicename }}
+            servicePort: 80
+{{- end }}

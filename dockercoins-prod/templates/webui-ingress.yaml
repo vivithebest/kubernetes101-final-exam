@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    projectname: {{ .Values.project }}
+    environment: {{ .Values.environment }}
+    servicename: webui
+  name: webui-ingress
+spec:
+  rules:
+    - host: {{ .Values.ingress.webuiHost }}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: webui
+            servicePort: 80
